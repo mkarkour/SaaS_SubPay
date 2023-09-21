@@ -1,0 +1,183 @@
+##########################
+# 1. Register a customer #
+##########################
+POST http://127.0.0.1:8000/register_customer HTTP/1.1
+Content-Type: application/json
+
+{
+    "Email": "d@denis.be",
+    "First_Name": "anto",
+    "Last_Name" : "fraccacreta",
+    "Birth_Date" : "1999-04-28",
+    "Password" : "denisdenis",
+    "Address" : "Avenue Buyl 13, 1000 Ixelles, BE",
+    "Billing_Address" : "Avenue Buyl 13, 1000 Ixelles, BE",
+    "Credit_Card" : "5301150401171979"
+}
+
+#########################
+# 2. Register a company #
+#########################
+POST http://127.0.0.1:8000/register_company HTTP/1.1
+Content-Type: application/json
+
+{
+    "VAT_Number": "BE241558",
+    "Company_Name": "Texita TFT corp",
+    "Address" : "Keelstraat 123, 1800 Vilvoorde, BE",
+    "Bank_Account" : "BE888888888"
+}
+
+##############################
+# 3. Register a subscription #
+##############################
+POST http://127.0.0.1:8000/register_subscription HTTP/1.1
+Content-Type: application/json
+
+{
+    "Subscription_Name": "pack 1h",
+    "Single_Price": "9",
+    "Currency" : "EUR",
+    "Company_VAT_Number" : "BE241558"
+}
+
+#######################
+# 4. Register a quote #
+#######################
+POST http://127.0.0.1:8000/register_quote HTTP/1.1
+Content-Type: application/json
+
+{
+    "Subscription_Reference": "4",
+    "Quantity" : "1",
+    "Currency" : "EUR",
+    "Active" : "False"
+}
+
+#############################
+# 5. Display specific quote #
+#############################
+POST http://127.0.0.1:8000/display_specific_quote HTTP/1.1
+Content-Type: application/json
+
+{ 
+    "quote_id": "23"
+}
+
+######################################################
+# 6. Accept quote -> automatically create an invoice #
+######################################################
+POST http://127.0.0.1:8000/accept_quote HTTP/1.1
+Content-Type: application/json
+
+{
+    "Quote_Reference": "23",
+    "Customer_Email" : "thien.huynh@ulb.be",
+    "End_Date" : "2030-10-09",
+    "Currency" : "EUR"
+}
+
+
+###############################################
+# 7. Check if customer has pending invoice(s) #
+###############################################
+POST http://127.0.0.1:8000/check_pending_invoice HTTP/1.1
+Content-Type: application/json
+
+{
+    "Email" : "noeline.deterwangne@ulb.be"
+}
+
+# "mehdi.karkour@ulb.be"
+# "noeline.deterwangne@ulb.be"
+# "yannick.lu@ulb.be"
+# "ilias.mahri@ulb.be"
+# "thien.huynh@ulb.be"
+# "ilias.mahri@ulb.be"
+
+################################################
+# 8. Pay invoice by using CC stored in account #
+################################################
+POST http://127.0.0.1:8000/pay_invoice HTTP/1.1
+Content-Type: application/json
+
+{
+    "Invoice_Reference": "11",
+    "Customer_Email" : "noeline.deterwangne@ulb.be",
+    "Amount_Paid_EUR" : "90.6895",
+    "Currency" : "JPY"
+}
+
+# USD
+# JPY
+# RUB
+# GBP
+
+################################
+# 9. Update CC and pay invoice #
+################################
+POST http://127.0.0.1:8000/update_cc_and_pay_invoice HTTP/1.1
+Content-Type: application/json
+
+{
+    "Invoice_Reference": "8",
+    "Customer_Email" : "noeline.deterwangne@ulb.be",
+    "CC" : "5301150401171978",
+    "Amount_Paid_EUR" : "25.3737",
+    "Currency" : "USD"
+}
+
+#Valid CC : 5301150401171978
+#Invalid CC : 1111111111111111
+
+# USD
+# JPY
+# RUB
+# GBP
+
+################################################################################
+# 10. Display MRR & ARR and the average revenue per customer for one compagnie #
+################################################################################
+POST http://127.0.0.1:8000/display_analytics HTTP/1.1
+Content-Type: application/json
+
+{
+    "Company_VAT_Number": "BE444444444",
+    "Choosen_Date": "2021-12-16"
+}
+
+
+#################################################
+# 11. Display number of clients for a compagnie #
+#################################################
+POST http://127.0.0.1:8000/display_customer HTTP/1.1
+Content-Type: application/json
+
+{
+    "Company_VAT_Number": "BE111111111"
+}
+
+#"BE111111111"
+#"BE222222222"
+#"BE333333333"
+#"BE444444444"
+
+######################################################
+# 12. Show customer and subscription for one company #
+######################################################
+POST http://127.0.0.1:8000/display_cust_sub HTTP/1.1
+Content-Type: application/json
+
+{
+    "Company_VAT_Number": "BE444444444"
+}
+
+##############################################################
+# 13. Display statistic about the customer for one compagnie #
+##############################################################
+POST http://127.0.0.1:8000/display_stat HTTP/1.1
+Content-Type: application/json
+
+{
+    "Company_VAT_Number": "BE444444444"
+}
